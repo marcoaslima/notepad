@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Notepad</RootNamespace>
-    <AssemblyName>Notepad</AssemblyName>
+    <AssemblyName>notepad</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>notepad.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Marckdx.Api">
+      <HintPath>..\..\marckdx.api\marckdx.api\bin\Debug\Marckdx.Api.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,14 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Archive.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\FormBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormChangeLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormChangeLanguage.Designer.cs">
+      <DependentUpon>FormChangeLanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="View\FormMain.cs">
       <SubType>Form</SubType>
@@ -73,8 +90,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FormBrowser.resx">
       <DependentUpon>FormBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormChangeLanguage.resx">
+      <DependentUpon>FormChangeLanguage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -82,6 +105,7 @@
     <EmbeddedResource Include="View\FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -91,6 +115,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="notepad.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Notepad.Core\Notepad.Core.csproj">
+      <Project>{ad0c8c96-90ca-40ae-b404-75b6f05a79e8}</Project>
+      <Name>Notepad.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Notepad.Resources\Notepad.Resources.csproj">
+      <Project>{93117eba-1aa7-411c-b2a0-c0753b35feb2}</Project>
+      <Name>Notepad.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

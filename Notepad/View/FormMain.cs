@@ -1,9 +1,13 @@
-﻿using Notepad.Model;
+﻿using Notepad.Core.Global;
+using Notepad.Core.IO;
+using Notepad.Core.Settings;
+using Notepad.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -20,12 +24,12 @@ namespace Notepad.View
         {
             get
             {
-                return hTMLBrowserToolStripMenuItem.Enabled;
+                return menuBrowser.Enabled;
             }
 
             set
             {
-                hTMLBrowserToolStripMenuItem.Enabled = value;
+                menuBrowser.Enabled = value;
             }
         }
 
@@ -46,12 +50,53 @@ namespace Notepad.View
         private Archive _currentArchive { get; set; }
 
         private Boolean fileIsSave = true;
+        public Language MyLanguage { get; set; }
+        public AppData MyAppData { get; set; }
 
-        public FormMain()
+
+        public FormMain(AppData MyAppData = null, Language MyLanguage = null)
         {
+            this.MyAppData = MyAppData;
+            this.MyLanguage = MyLanguage;
+
             InitializeComponent();
+            InitializeLanguage();
+
             buffer = new List<String>();
             previousTitle = this.Text;
+        }
+
+        public void InitializeLanguage()
+        {
+            ApplyMenu(this.menuForm);
+            this.lblLanguage.Text = MyLanguage.LangName;
+            this.Text = MyLanguage.GetKey("FormMain.Text").Translation;
+        }
+
+        public void ApplyMenu(MenuStrip menuForm)
+        {
+            foreach (ToolStripMenuItem menu in menuForm.Items)
+            {
+                menu.Text = MyLanguage.SetComponentLanguage(this.Name, menu.Name);
+
+                if (menu.HasDropDownItems)
+                {
+                    ApplyMenuItem(menu.DropDownItems, this);
+                }
+            }
+        }
+
+        private void ApplyMenuItem(ToolStripItemCollection toolStripItemCollection, Form form)
+        {
+            foreach (ToolStripItem item in toolStripItemCollection)
+            {
+                item.Text = MyLanguage.SetComponentLanguage(this.Name, item.Name);
+
+                if (item.GetType() == typeof(ToolStripMenuItem))
+                {
+                    ApplyMenuItem(((ToolStripMenuItem)item).DropDownItems, form);
+                }
+            }
         }
 
         private void txtContent_TextChanged(object sender, EventArgs e)
@@ -97,13 +142,15 @@ namespace Notepad.View
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (fileIsSave)
+            if (fileIsSave || currentArchive == null)
             {
                 OpenFile();
             }
             else
             {
-                DialogResult dr = MessageBox.Show("Arquivo não foi salvo, salvar antes de sair?", "Abrir", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                Notepad.Core.Global.Message message = MyLanguage.GetMessage("MessageSaveFileBeforeExit");
+                
+                DialogResult dr = MessageBox.Show(message.Text, message.Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {
                     if (currentArchive == null)
@@ -159,10 +206,15 @@ namespace Notepad.View
 
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
-                this.currentArchive = Archive.Read(openFile.FileName);
-                txtContent.AppendText(currentArchive.content);
-                this.fileIsSave = true;
+                Read(openFile.FileName);
             }
+        }
+
+        public void Read(String Path)
+        {
+            this.currentArchive = Archive.Read(Path);
+            txtContent.AppendText(currentArchive.content);
+            this.fileIsSave = true;
         }
 
         private void hTMLBrowserToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,18 +228,41 @@ namespace Notepad.View
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                PerformQuestionExit();
+                PerformQuestionExit(e);
             }
         }
 
-        private void PerformQuestionExit()
+        private void PerformQuestionExit(FormClosingEventArgs e = null)
         {
             if (!fileIsSave)
             {
-                if (MessageBox.Show("Arquivo não salvo, salvar antes de sair?", "SAIR", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                Notepad.Core.Global.Message message = MyLanguage.GetMessage("MessageSaveFileBeforeExit");
+
+                DialogResult dr = MessageBox.Show(message.Text, message.Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                
+                if (dr == System.Windows.Forms.DialogResult.Yes)
                 {
-                    SaveFile();
+                    if (!SaveFile().Equals(String.Empty))
+                    {
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        if (e != null) { e.Cancel = true; }
+                    }
                 }
+                else if (dr == System.Windows.Forms.DialogResult.No)
+                {
+                    Application.Exit();
+                }
+                else if (dr == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    if (e != null) { e.Cancel = true; }
+                }
+
+            }
+            else
+            {
                 Application.Exit();
             }
         }
@@ -214,12 +289,155 @@ namespace Notepad.View
         {
             currentArchive = new Archive(SaveFile(), txtContent.Text);
             currentArchive.Save();
+            fileIsSave = true;
         }
         
         private void opcoesGeraisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormSettings settings = new FormSettings();
             settings.ShowDialog();
+        }
+
+        private void configuraçõesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormSettings settings = new FormSettings();
+            settings.ShowDialog();
+        }
+
+        private void fonteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fontDialog.ShowDialog() == DialogResult.OK & !String.IsNullOrEmpty(txtContent.Text))
+            {
+                txtContent.Font = fontDialog.Font;
+            }          
+        }
+
+        private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.currentArchive != null)
+            {
+                this.currentArchive.Save();
+            }
+            else
+            {
+                currentArchive = new Archive(SaveFile(), txtContent.Text);
+                currentArchive.Save();
+                fileIsSave = true;
+            }
+        }
+
+        private void menuLanguage_Click(object sender, EventArgs e)
+        {
+            FormChangeLanguage changeLanguage = new FormChangeLanguage(this.MyLanguage, this);
+            changeLanguage.ShowDialog();
+        }
+
+        private void menuRun_Click(object sender, EventArgs e)
+        {
+            if (!fileIsSave || currentArchive == null)
+            {
+                if(currentArchive == null){
+                    currentArchive = new Archive(SaveFile(), txtContent.Text);
+                }
+                currentArchive.Save();
+            }
+
+            String FileExtension = Path.GetExtension(this.currentArchive.path);
+            ExecuteAndCompile execute = this.MyAppData.Developer.GetExecuteAndCompile(FileExtension);
+            if (execute != null)
+            {
+                execute.Run(this.currentArchive.path,false);
+            }
+        }
+
+        private void txtContent_CursorChanged(object sender, EventArgs e)
+        {
+            int cursorPosition = txtContent.SelectionStart;
+
+            lblLines.Text = String.Format("Ln: {0}/{1}", (txtContent.GetLineFromCharIndex(cursorPosition) + 1), txtContent.Lines.Count());
+            lblColumns.Text = String.Format("Cl: {0}/{1}", txtContent.GetPositionFromCharIndex(cursorPosition), "");
+            lblPosition.Text = String.Format("Pos: {0}/{1}", "", "");
+        }
+
+        private void menuAbout_Click(object sender, EventArgs e)
+        {
+            FormAbout about = new FormAbout();
+            about.ShowDialog();
+        }
+
+        private void menuStartPage_Click(object sender, EventArgs e)
+        {
+            WebSite.Open("http://megari.com.br/software/notepad");
+        }
+
+        private void menuNewWindow_Click(object sender, EventArgs e)
+        {
+            WebSite.Open("notepad.exe");
+        }
+
+        private void menuPaste_Click(object sender, EventArgs e)
+        {
+            Control ctrl = this.ActiveControl;
+            if (ctrl != null)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox tx = (TextBox)ctrl;
+                    tx.Paste();
+                }
+                if (ctrl is RichTextBox)
+                {
+                    RichTextBox cb = (RichTextBox)ctrl;
+                    cb.Paste();
+                }
+            }
+        }
+
+        private void menuCopy_Click(object sender, EventArgs e)
+        {
+            Control ctrl = this.ActiveControl;
+            if (ctrl != null)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox tx = (TextBox)ctrl;
+                    tx.Copy();
+                }
+
+                if (ctrl is RichTextBox)
+                {
+                    RichTextBox tx = (RichTextBox)ctrl;
+                    tx.Copy();
+                }
+            }
+        }
+
+        private void menuCrop_Click(object sender, EventArgs e)
+        {
+            Control ctrl = this.ActiveControl;
+            if (ctrl != null)
+            {
+                if (ctrl is TextBox)
+                {
+                    TextBox tx = (TextBox)ctrl;
+                    tx.Cut();
+                }
+                if (ctrl is RichTextBox)
+                {
+                    RichTextBox cb = (RichTextBox)ctrl;
+                    cb.Cut();
+                }
+            }
+        }
+
+        private void menuRunAs_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuPrint_Click(object sender, EventArgs e)
+        {
+            printMain.ShowDialog();
         }
     }
 }

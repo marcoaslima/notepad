@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Notepad.Model
+namespace Notepad.Core.IO
 {
     public class Archive
     {
@@ -21,9 +21,10 @@ namespace Notepad.Model
         {
             List<String> lines = new List<String>();
 
-            using(StreamReader file =  new StreamReader(Path)){
+            using (StreamReader file = new StreamReader(Path))
+            {
                 String line = String.Empty;
-                while((line = file.ReadLine()) != null)
+                while ((line = file.ReadLine()) != null)
                 {
                     lines.Add(line);
                 }
@@ -39,9 +40,13 @@ namespace Notepad.Model
             using (StreamReader file = new StreamReader(Path))
             {
                 String line = String.Empty;
+                Boolean firstLine = true;
+
                 while ((line = file.ReadLine()) != null)
                 {
-                    lineFinal = String.Concat(lineFinal, Environment.NewLine, line);
+
+                    lineFinal = firstLine ? line : String.Concat(lineFinal, Environment.NewLine, line);
+                    firstLine = false;
                 }
                 file.Close();
                 return lineFinal;
@@ -63,7 +68,7 @@ namespace Notepad.Model
             return Archive.Save(path, this.content);
         }
 
-        public  static Boolean Save(Archive archive)
+        public static Boolean Save(Archive archive)
         {
             return Archive.Save(archive.path, archive.content);
         }
@@ -74,7 +79,7 @@ namespace Notepad.Model
             {
                 using (StreamWriter outputFile = new StreamWriter(path))
                 {
-                     outputFile.WriteLine(content);
+                    outputFile.WriteLine(content);
                 }
                 return true;
             }
