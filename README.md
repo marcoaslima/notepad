@@ -5,6 +5,8 @@ Editor de texto avançado para Windows.
 
 ![App screenshots](http://c1.staticflickr.com/5/4251/34712217680_16bf0d6215_b.jpg)
 
+Para mais imagens visite a galeria em <a href="https://goo.gl/7yfwL6">https://goo.gl/7yfwL6</a>
+
 ### Requisitos mínimos
 <ul>
 <li>Windows XP ou superior</li>
