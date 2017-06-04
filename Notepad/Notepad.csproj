@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>notepad.ico</ApplicationIcon>
+    <ApplicationIcon>notepad_2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Marckdx.Api">
@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="notepad.ico" />
+    <Content Include="notepad_2.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Notepad.Core\Notepad.Core.csproj">

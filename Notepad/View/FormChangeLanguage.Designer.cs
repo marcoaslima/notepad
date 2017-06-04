@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChangeLanguage));
             this.cbxLanguage = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDefine = new System.Windows.Forms.Button();
             this.lblLanguageCode = new System.Windows.Forms.Label();
+            this.btnDefine = new System.Windows.Forms.Button();
             this.chkExitOnSave = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +58,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Idioma";
             // 
+            // lblLanguageCode
+            // 
+            this.lblLanguageCode.AutoSize = true;
+            this.lblLanguageCode.Location = new System.Drawing.Point(201, 55);
+            this.lblLanguageCode.Name = "lblLanguageCode";
+            this.lblLanguageCode.Size = new System.Drawing.Size(38, 13);
+            this.lblLanguageCode.TabIndex = 1;
+            this.lblLanguageCode.Text = "XX-XX";
+            // 
             // btnDefine
             // 
             this.btnDefine.Location = new System.Drawing.Point(190, 100);
@@ -67,15 +76,6 @@
             this.btnDefine.Text = "Definir";
             this.btnDefine.UseVisualStyleBackColor = true;
             this.btnDefine.Click += new System.EventHandler(this.btnDefine_Click);
-            // 
-            // lblLanguageCode
-            // 
-            this.lblLanguageCode.AutoSize = true;
-            this.lblLanguageCode.Location = new System.Drawing.Point(201, 55);
-            this.lblLanguageCode.Name = "lblLanguageCode";
-            this.lblLanguageCode.Size = new System.Drawing.Size(38, 13);
-            this.lblLanguageCode.TabIndex = 1;
-            this.lblLanguageCode.Text = "XX-XX";
             // 
             // chkExitOnSave
             // 

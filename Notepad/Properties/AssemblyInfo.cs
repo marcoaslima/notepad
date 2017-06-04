@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Notepad Alfa")]
+[assembly: AssemblyTitle("Notepad")]
 [assembly: AssemblyDescription("Bloco de notas com funções avançadas e suporte a desenvolvimento de scripts")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Megari Tecnologia e Serviços LTDA ME")]
-[assembly: AssemblyProduct("Megari Apps | Notepad")]
+[assembly: AssemblyCompany("Marco Aurélio Lima")]
+[assembly: AssemblyProduct("MarckDx Apps | Notepad")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

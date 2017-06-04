@@ -78,7 +78,12 @@
             this.menuSelectText = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFormat = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAutoWrapLine = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.menuFont = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFavourite = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAddFileToList = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageFavourites = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.menuShow = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStatusBar = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFullScreen = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,11 +146,6 @@
             this.preferenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printMain = new System.Windows.Forms.PrintDialog();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
-            this.menuFavourite = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuAddFileToList = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageFavourites = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.menuText.SuspendLayout();
             this.menuForm.SuspendLayout();
             this.statusForm.SuspendLayout();
@@ -530,12 +530,44 @@
             this.menuAutoWrapLine.Size = new System.Drawing.Size(221, 22);
             this.menuAutoWrapLine.Text = "Quebra automática de linha";
             // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(218, 6);
+            // 
             // menuFont
             // 
             this.menuFont.Name = "menuFont";
             this.menuFont.Size = new System.Drawing.Size(221, 22);
             this.menuFont.Text = "Fonte";
             this.menuFont.Click += new System.EventHandler(this.fonteToolStripMenuItem_Click);
+            // 
+            // menuFavourite
+            // 
+            this.menuFavourite.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAddFileToList,
+            this.manageFavourites,
+            this.toolStripSeparator18});
+            this.menuFavourite.Name = "menuFavourite";
+            this.menuFavourite.Size = new System.Drawing.Size(62, 20);
+            this.menuFavourite.Text = "Favorito";
+            // 
+            // menuAddFileToList
+            // 
+            this.menuAddFileToList.Name = "menuAddFileToList";
+            this.menuAddFileToList.Size = new System.Drawing.Size(192, 22);
+            this.menuAddFileToList.Text = "Adicionar este arquivo";
+            // 
+            // manageFavourites
+            // 
+            this.manageFavourites.Name = "manageFavourites";
+            this.manageFavourites.Size = new System.Drawing.Size(192, 22);
+            this.manageFavourites.Text = "Gerenciar lista";
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(189, 6);
             // 
             // menuShow
             // 
@@ -765,7 +797,7 @@
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(159, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(180, 6);
             // 
             // menuUpZoom
             // 
@@ -791,7 +823,7 @@
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(159, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(180, 6);
             // 
             // menuHelp
             // 
@@ -990,38 +1022,6 @@
             // printMain
             // 
             this.printMain.UseEXDialog = true;
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(218, 6);
-            // 
-            // menuFavourite
-            // 
-            this.menuFavourite.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuAddFileToList,
-            this.manageFavourites,
-            this.toolStripSeparator18});
-            this.menuFavourite.Name = "menuFavourite";
-            this.menuFavourite.Size = new System.Drawing.Size(62, 20);
-            this.menuFavourite.Text = "Favorito";
-            // 
-            // menuAddFileToList
-            // 
-            this.menuAddFileToList.Name = "menuAddFileToList";
-            this.menuAddFileToList.Size = new System.Drawing.Size(192, 22);
-            this.menuAddFileToList.Text = "Adicionar este arquivo";
-            // 
-            // manageFavourites
-            // 
-            this.manageFavourites.Name = "manageFavourites";
-            this.manageFavourites.Size = new System.Drawing.Size(192, 22);
-            this.manageFavourites.Text = "Gerenciar lista";
-            // 
-            // toolStripSeparator18
-            // 
-            this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(189, 6);
             // 
             // FormMain
             // 

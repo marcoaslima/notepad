@@ -381,7 +381,7 @@ namespace Notepad.View
 
         private void menuStartPage_Click(object sender, EventArgs e)
         {
-            WebSite.Open(String.Format("http://megari.com.br/software/notepad?apppack=br.com.megari.notepad&appversion={0}&lang={1}", AssemblyVersion, this.MyLanguage.LangCode));
+            WebSite.Open(String.Format("http://marckdx.github.io/notepad?apppack=io.github.marckdx.notepad&appversion={0}&lang={1}", AssemblyVersion, this.MyLanguage.LangCode));
         }
 
         private void menuNewWindow_Click(object sender, EventArgs e)
