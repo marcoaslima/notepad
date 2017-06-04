@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.cbxLanguage = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -40,9 +42,9 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkShowFullPathWindow = new System.Windows.Forms.CheckBox();
+            this.chkAskBeforeExit = new System.Windows.Forms.CheckBox();
+            this.chkExitF4 = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.checkBox23 = new System.Windows.Forms.CheckBox();
@@ -68,7 +70,7 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbxThemes = new System.Windows.Forms.ComboBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -116,12 +118,11 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -143,7 +144,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgLinguagens)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -175,6 +175,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Geral";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.cbxLanguage);
+            this.groupBox14.Location = new System.Drawing.Point(189, 216);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(141, 79);
+            this.groupBox14.TabIndex = 5;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Idioma";
+            // 
+            // cbxLanguage
+            // 
+            this.cbxLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxLanguage.FormattingEnabled = true;
+            this.cbxLanguage.Location = new System.Drawing.Point(6, 30);
+            this.cbxLanguage.Name = "cbxLanguage";
+            this.cbxLanguage.Size = new System.Drawing.Size(129, 21);
+            this.cbxLanguage.TabIndex = 4;
+            this.cbxLanguage.SelectedIndexChanged += new System.EventHandler(this.cbxLanguage_SelectedIndexChanged);
             // 
             // button2
             // 
@@ -247,9 +267,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBox4);
-            this.groupBox2.Controls.Add(this.checkBox3);
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.chkShowFullPathWindow);
+            this.groupBox2.Controls.Add(this.chkAskBeforeExit);
+            this.groupBox2.Controls.Add(this.chkExitF4);
             this.groupBox2.Location = new System.Drawing.Point(15, 15);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(315, 134);
@@ -267,35 +287,38 @@
             this.checkBox4.Text = "Procurar por atualizações";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // chkShowFullPathWindow
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(22, 75);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(159, 17);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "Caminho completo na janela";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.chkShowFullPathWindow.AutoSize = true;
+            this.chkShowFullPathWindow.Location = new System.Drawing.Point(22, 75);
+            this.chkShowFullPathWindow.Name = "chkShowFullPathWindow";
+            this.chkShowFullPathWindow.Size = new System.Drawing.Size(159, 17);
+            this.chkShowFullPathWindow.TabIndex = 0;
+            this.chkShowFullPathWindow.Text = "Caminho completo na janela";
+            this.chkShowFullPathWindow.UseVisualStyleBackColor = true;
+            this.chkShowFullPathWindow.CheckedChanged += new System.EventHandler(this.chkShowFullPathWindow_CheckedChanged);
             // 
-            // checkBox2
+            // chkAskBeforeExit
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(40, 52);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(135, 17);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = "Perguntar antes de sair";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkAskBeforeExit.AutoSize = true;
+            this.chkAskBeforeExit.Location = new System.Drawing.Point(40, 52);
+            this.chkAskBeforeExit.Name = "chkAskBeforeExit";
+            this.chkAskBeforeExit.Size = new System.Drawing.Size(135, 17);
+            this.chkAskBeforeExit.TabIndex = 0;
+            this.chkAskBeforeExit.Text = "Perguntar antes de sair";
+            this.chkAskBeforeExit.UseVisualStyleBackColor = true;
+            this.chkAskBeforeExit.CheckedChanged += new System.EventHandler(this.chkAskBeforeExit_CheckedChanged);
             // 
-            // checkBox1
+            // chkExitF4
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(22, 29);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(100, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Sair com Alt+F4";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkExitF4.AutoSize = true;
+            this.chkExitF4.Location = new System.Drawing.Point(22, 29);
+            this.chkExitF4.Name = "chkExitF4";
+            this.chkExitF4.Size = new System.Drawing.Size(100, 17);
+            this.chkExitF4.TabIndex = 0;
+            this.chkExitF4.Text = "Sair com Alt+F4";
+            this.chkExitF4.UseVisualStyleBackColor = true;
+            this.chkExitF4.CheckedChanged += new System.EventHandler(this.chkExitF4_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -535,7 +558,7 @@
             // 
             this.groupBox7.Controls.Add(this.button12);
             this.groupBox7.Controls.Add(this.button11);
-            this.groupBox7.Controls.Add(this.comboBox1);
+            this.groupBox7.Controls.Add(this.cbxThemes);
             this.groupBox7.Location = new System.Drawing.Point(23, 141);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(312, 69);
@@ -561,14 +584,15 @@
             this.button11.Text = "Editar";
             this.button11.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cbxThemes
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(19, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(106, 21);
-            this.comboBox1.TabIndex = 0;
+            this.cbxThemes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxThemes.FormattingEnabled = true;
+            this.cbxThemes.Location = new System.Drawing.Point(19, 30);
+            this.cbxThemes.Name = "cbxThemes";
+            this.cbxThemes.Size = new System.Drawing.Size(106, 21);
+            this.cbxThemes.TabIndex = 0;
+            this.cbxThemes.SelectedIndexChanged += new System.EventHandler(this.cbxThemes_SelectedIndexChanged);
             // 
             // groupBox6
             // 
@@ -1038,8 +1062,8 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.linkLabel1);
-            this.panel1.Controls.Add(this.button19);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(395, 3);
             this.panel1.Name = "panel1";
@@ -1056,47 +1080,33 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Obter ajuda";
             // 
-            // button19
+            // btnCancel
             // 
-            this.button19.Location = new System.Drawing.Point(3, 51);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(92, 23);
-            this.button19.TabIndex = 1;
-            this.button19.Text = "Cancelar";
-            this.button19.UseVisualStyleBackColor = true;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(3, 51);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(92, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // button1
+            // btnSave
             // 
-            this.button1.Location = new System.Drawing.Point(3, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Salvar";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 30);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(129, 21);
-            this.comboBox2.TabIndex = 4;
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.comboBox2);
-            this.groupBox14.Location = new System.Drawing.Point(189, 216);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(141, 79);
-            this.groupBox14.TabIndex = 5;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Idioma";
+            this.btnSave.Location = new System.Drawing.Point(3, 22);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(92, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "Salvar";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // FormSettings
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(499, 401);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1108,6 +1118,7 @@
             this.Text = "Bloco de notas";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1142,7 +1153,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1157,7 +1167,7 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnRemoveLanguage;
         private System.Windows.Forms.Button btnAddLanguage;
@@ -1168,9 +1178,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ds_argumentos;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkShowFullPathWindow;
+        private System.Windows.Forms.CheckBox chkAskBeforeExit;
+        private System.Windows.Forms.CheckBox chkExitF4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.CheckBox checkBox5;
@@ -1192,7 +1202,7 @@
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbxThemes;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label5;
@@ -1237,8 +1247,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox cbxLanguage;
         private System.Windows.Forms.GroupBox groupBox14;
     }
 }

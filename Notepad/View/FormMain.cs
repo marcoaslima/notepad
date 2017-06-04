@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -61,9 +63,15 @@ namespace Notepad.View
 
             InitializeComponent();
             InitializeLanguage();
+            InitializeSettings();
 
             buffer = new List<String>();
             previousTitle = this.Text;
+        }
+
+        public void InitializeSettings()
+        {
+            this.ApplyTheme(this.MyAppData.SearchThemeByName(this.MyAppData.DefaultThemeName));
         }
 
         public void InitializeLanguage()
@@ -234,42 +242,48 @@ namespace Notepad.View
 
         private void PerformQuestionExit(FormClosingEventArgs e = null)
         {
-            if (!fileIsSave)
+            if (this.MyAppData.General.AskBeforeExit)
             {
-                Notepad.Core.Global.Message message = MyLanguage.GetMessage("MessageSaveFileBeforeExit");
-
-                DialogResult dr = MessageBox.Show(message.Text, message.Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                
-                if (dr == System.Windows.Forms.DialogResult.Yes)
+                if (!fileIsSave)
                 {
-                    if (!SaveFile().Equals(String.Empty))
+                    Notepad.Core.Global.Message message = MyLanguage.GetMessage("MessageSaveFileBeforeExit");
+
+                    DialogResult dr = MessageBox.Show(message.Text, message.Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    if (dr == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        if (!SaveFile().Equals(String.Empty))
+                        {
+                            Application.Exit();
+                        }
+                        else
+                        {
+                            if (e != null) { e.Cancel = true; }
+                        }
+                    }
+                    else if (dr == System.Windows.Forms.DialogResult.No)
                     {
                         Application.Exit();
                     }
-                    else
+                    else if (dr == System.Windows.Forms.DialogResult.Cancel)
                     {
                         if (e != null) { e.Cancel = true; }
                     }
+
                 }
-                else if (dr == System.Windows.Forms.DialogResult.No)
+                else
                 {
                     Application.Exit();
                 }
-                else if (dr == System.Windows.Forms.DialogResult.Cancel)
-                {
-                    if (e != null) { e.Cancel = true; }
-                }
-
-            }
-            else
-            {
-                Application.Exit();
             }
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PerformQuestionExit();
+            if (this.MyAppData.General.ExitAltF4)
+            {
+                PerformQuestionExit();
+            }
         }
 
         private void salvarESairToolStripMenuItem_Click(object sender, EventArgs e)
@@ -294,13 +308,13 @@ namespace Notepad.View
         
         private void opcoesGeraisToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormSettings settings = new FormSettings();
+            FormSettings settings = new FormSettings(this.MyAppData, this);
             settings.ShowDialog();
         }
 
         private void configuraçõesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormSettings settings = new FormSettings();
+            FormSettings settings = new FormSettings(this.MyAppData, this);
             settings.ShowDialog();
         }
 
@@ -328,7 +342,7 @@ namespace Notepad.View
 
         private void menuLanguage_Click(object sender, EventArgs e)
         {
-            FormChangeLanguage changeLanguage = new FormChangeLanguage(this.MyLanguage, this);
+            FormChangeLanguage changeLanguage = new FormChangeLanguage(this.MyLanguage, this, this.MyAppData);
             changeLanguage.ShowDialog();
         }
 
@@ -367,7 +381,7 @@ namespace Notepad.View
 
         private void menuStartPage_Click(object sender, EventArgs e)
         {
-            WebSite.Open("http://megari.com.br/software/notepad");
+            WebSite.Open(String.Format("http://megari.com.br/software/notepad?apppack=br.com.megari.notepad&appversion={0}&lang={1}", AssemblyVersion, this.MyLanguage.LangCode));
         }
 
         private void menuNewWindow_Click(object sender, EventArgs e)
@@ -437,7 +451,72 @@ namespace Notepad.View
 
         private void menuPrint_Click(object sender, EventArgs e)
         {
-            printMain.ShowDialog();
+            PrintDocument documentToPrint = new PrintDocument();
+            printMain.Document = documentToPrint;
+
+            if (printMain.ShowDialog() == DialogResult.OK)
+            {
+                StringReader reader = new StringReader(txtContent.Text);
+                documentToPrint.PrintPage += new PrintPageEventHandler(DocumentToPrint_PrintPage);
+                documentToPrint.Print();
+            }
+        }
+
+        private void DocumentToPrint_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            StringReader reader = new StringReader(txtContent.Text);
+            float LinesPerPage = 0;
+            float YPosition = 0;
+            int Count = 0;
+            float LeftMargin = e.MarginBounds.Left;
+            float TopMargin = e.MarginBounds.Top;
+            string Line = null;
+            Font PrintFont = this.txtContent.Font;
+            SolidBrush PrintBrush = new SolidBrush(Color.Black);
+
+            LinesPerPage = e.MarginBounds.Height / PrintFont.GetHeight(e.Graphics);
+
+            while (Count < LinesPerPage && ((Line = reader.ReadLine()) != null))
+            {
+                YPosition = TopMargin + (Count * PrintFont.GetHeight(e.Graphics));
+                e.Graphics.DrawString(Line, PrintFont, PrintBrush, LeftMargin, YPosition, new StringFormat());
+                Count++;
+            }
+
+            if (Line != null)
+            {
+                e.HasMorePages = true;
+            }
+            else
+            {
+                e.HasMorePages = false;
+            }
+            PrintBrush.Dispose();
+        }
+
+        private void menuThemeDark_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void ApplyTheme(Theme theme)
+        {
+            this.menuForm.BackColor = System.Drawing.ColorTranslator.FromHtml(theme.MenuBackColor);
+            this.txtContent.BackColor =  System.Drawing.ColorTranslator.FromHtml(theme.EditorBackColor);
+            this.txtContent.ForeColor =  System.Drawing.ColorTranslator.FromHtml(theme.EditorFontColor);
+
+            foreach (ToolStripMenuItem menu in menuForm.Items)
+            {
+                menu.ForeColor = System.Drawing.ColorTranslator.FromHtml(theme.MenuFontColor);
+            }
+        }
+
+        public string AssemblyVersion
+        {
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
         }
     }
 }

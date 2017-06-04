@@ -84,9 +84,6 @@
             this.menuFullScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAlwaysOnTop = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTheme = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuThemeDark = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuThemeBlue = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuThemeNormal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.menuBrowser = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
@@ -137,13 +134,18 @@
             this.ntfMain = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuSysTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exibirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.preferenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.printMain = new System.Windows.Forms.PrintDialog();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuFavourite = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuAddFileToList = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageFavourites = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.menuText.SuspendLayout();
             this.menuForm.SuspendLayout();
             this.statusForm.SuspendLayout();
@@ -177,6 +179,7 @@
             this.menuFile,
             this.menuEdit,
             this.menuFormat,
+            this.menuFavourite,
             this.menuShow,
             this.menuTools,
             this.menuOptions,
@@ -360,6 +363,7 @@
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
+            this.menuExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.menuExit.Size = new System.Drawing.Size(211, 22);
             this.menuExit.Text = "Sair";
             this.menuExit.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
@@ -514,6 +518,7 @@
             // 
             this.menuFormat.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAutoWrapLine,
+            this.toolStripSeparator17,
             this.menuFont});
             this.menuFormat.Name = "menuFormat";
             this.menuFormat.Size = new System.Drawing.Size(67, 20);
@@ -556,6 +561,7 @@
             // menuFullScreen
             // 
             this.menuFullScreen.Name = "menuFullScreen";
+            this.menuFullScreen.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.menuFullScreen.Size = new System.Drawing.Size(182, 22);
             this.menuFullScreen.Text = "Tela cheia";
             // 
@@ -567,33 +573,9 @@
             // 
             // menuTheme
             // 
-            this.menuTheme.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuThemeDark,
-            this.menuThemeBlue,
-            this.menuThemeNormal});
             this.menuTheme.Name = "menuTheme";
             this.menuTheme.Size = new System.Drawing.Size(182, 22);
             this.menuTheme.Text = "Tema";
-            // 
-            // menuThemeDark
-            // 
-            this.menuThemeDark.Checked = true;
-            this.menuThemeDark.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.menuThemeDark.Name = "menuThemeDark";
-            this.menuThemeDark.Size = new System.Drawing.Size(114, 22);
-            this.menuThemeDark.Text = "Negro";
-            // 
-            // menuThemeBlue
-            // 
-            this.menuThemeBlue.Name = "menuThemeBlue";
-            this.menuThemeBlue.Size = new System.Drawing.Size(114, 22);
-            this.menuThemeBlue.Text = "Azul";
-            // 
-            // menuThemeNormal
-            // 
-            this.menuThemeNormal.Name = "menuThemeNormal";
-            this.menuThemeNormal.Size = new System.Drawing.Size(114, 22);
-            this.menuThemeNormal.Text = "Normal";
             // 
             // toolStripSeparator11
             // 
@@ -641,7 +623,7 @@
             this.menuToUperCase,
             this.menuToLowerCase});
             this.menuCase.Name = "menuCase";
-            this.menuCase.Size = new System.Drawing.Size(152, 22);
+            this.menuCase.Size = new System.Drawing.Size(203, 22);
             this.menuCase.Text = "Caixa";
             // 
             // menuToUperCase
@@ -659,7 +641,7 @@
             // menuLines
             // 
             this.menuLines.Name = "menuLines";
-            this.menuLines.Size = new System.Drawing.Size(152, 22);
+            this.menuLines.Size = new System.Drawing.Size(203, 22);
             this.menuLines.Text = "Linhas";
             // 
             // menuTextProperties
@@ -667,7 +649,7 @@
             this.menuTextProperties.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFindText});
             this.menuTextProperties.Name = "menuTextProperties";
-            this.menuTextProperties.Size = new System.Drawing.Size(152, 22);
+            this.menuTextProperties.Size = new System.Drawing.Size(203, 22);
             this.menuTextProperties.Text = "Texto";
             // 
             // menuFindText
@@ -685,7 +667,7 @@
             this.menuInvertEachWord,
             this.menuInvertLine});
             this.menuInvert.Name = "menuInvert";
-            this.menuInvert.Size = new System.Drawing.Size(152, 22);
+            this.menuInvert.Size = new System.Drawing.Size(203, 22);
             this.menuInvert.Text = "Reverter";
             // 
             // menuInvertText
@@ -715,7 +697,7 @@
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(200, 6);
             // 
             // menuCypher
             // 
@@ -723,7 +705,7 @@
             this.menuCypherDES,
             this.menuCypher3DES});
             this.menuCypher.Name = "menuCypher";
-            this.menuCypher.Size = new System.Drawing.Size(152, 22);
+            this.menuCypher.Size = new System.Drawing.Size(203, 22);
             this.menuCypher.Text = "Criptografar";
             // 
             // menuCypherDES
@@ -741,13 +723,13 @@
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(200, 6);
             // 
             // menuRun
             // 
             this.menuRun.Name = "menuRun";
             this.menuRun.ShortcutKeyDisplayString = "F5";
-            this.menuRun.Size = new System.Drawing.Size(152, 22);
+            this.menuRun.Size = new System.Drawing.Size(203, 22);
             this.menuRun.Text = "Executar";
             this.menuRun.Click += new System.EventHandler(this.menuRun_Click);
             // 
@@ -774,8 +756,10 @@
             // 
             // menuShowStatusBar
             // 
+            this.menuShowStatusBar.Checked = true;
+            this.menuShowStatusBar.CheckState = System.Windows.Forms.CheckState.Checked;
             this.menuShowStatusBar.Name = "menuShowStatusBar";
-            this.menuShowStatusBar.Size = new System.Drawing.Size(162, 22);
+            this.menuShowStatusBar.Size = new System.Drawing.Size(183, 22);
             this.menuShowStatusBar.Text = "Barra de status";
             // 
             // toolStripSeparator7
@@ -786,19 +770,22 @@
             // menuUpZoom
             // 
             this.menuUpZoom.Name = "menuUpZoom";
-            this.menuUpZoom.Size = new System.Drawing.Size(162, 22);
+            this.menuUpZoom.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.menuUpZoom.Size = new System.Drawing.Size(183, 22);
             this.menuUpZoom.Text = "Aumentar Zoom";
             // 
             // menuDownZoom
             // 
             this.menuDownZoom.Name = "menuDownZoom";
-            this.menuDownZoom.Size = new System.Drawing.Size(162, 22);
+            this.menuDownZoom.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.menuDownZoom.Size = new System.Drawing.Size(183, 22);
             this.menuDownZoom.Text = "Diminuir Zoom";
             // 
             // menuNormalZoom
             // 
             this.menuNormalZoom.Name = "menuNormalZoom";
-            this.menuNormalZoom.Size = new System.Drawing.Size(162, 22);
+            this.menuNormalZoom.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.menuNormalZoom.Size = new System.Drawing.Size(183, 22);
             this.menuNormalZoom.Text = "Restaurar Zoom";
             // 
             // toolStripSeparator8
@@ -868,6 +855,7 @@
             // menuShowHelp
             // 
             this.menuShowHelp.Name = "menuShowHelp";
+            this.menuShowHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.menuShowHelp.Size = new System.Drawing.Size(219, 22);
             this.menuShowHelp.Text = "Exibir ajuda";
             // 
@@ -965,6 +953,11 @@
             this.exibirToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.exibirToolStripMenuItem.Text = "Exibir";
             // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(135, 6);
+            // 
             // novoToolStripMenuItem
             // 
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
@@ -976,6 +969,11 @@
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(135, 6);
             // 
             // preferenciasToolStripMenuItem
             // 
@@ -989,19 +987,41 @@
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.sairToolStripMenuItem.Text = "Sair";
             // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(135, 6);
-            // 
-            // toolStripSeparator16
-            // 
-            this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(135, 6);
-            // 
             // printMain
             // 
             this.printMain.UseEXDialog = true;
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(218, 6);
+            // 
+            // menuFavourite
+            // 
+            this.menuFavourite.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAddFileToList,
+            this.manageFavourites,
+            this.toolStripSeparator18});
+            this.menuFavourite.Name = "menuFavourite";
+            this.menuFavourite.Size = new System.Drawing.Size(62, 20);
+            this.menuFavourite.Text = "Favorito";
+            // 
+            // menuAddFileToList
+            // 
+            this.menuAddFileToList.Name = "menuAddFileToList";
+            this.menuAddFileToList.Size = new System.Drawing.Size(192, 22);
+            this.menuAddFileToList.Text = "Adicionar este arquivo";
+            // 
+            // manageFavourites
+            // 
+            this.manageFavourites.Name = "manageFavourites";
+            this.manageFavourites.Size = new System.Drawing.Size(192, 22);
+            this.manageFavourites.Text = "Gerenciar lista";
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(189, 6);
             // 
             // FormMain
             // 
@@ -1100,9 +1120,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuCheckForUpdates;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem menuTheme;
-        private System.Windows.Forms.ToolStripMenuItem menuThemeDark;
-        private System.Windows.Forms.ToolStripMenuItem menuThemeBlue;
-        private System.Windows.Forms.ToolStripMenuItem menuThemeNormal;
         private System.Windows.Forms.ToolStripMenuItem menuSelect;
         private System.Windows.Forms.ToolStripMenuItem menuSelectWord;
         private System.Windows.Forms.ToolStripMenuItem menuSelectLine;
@@ -1144,6 +1161,11 @@
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon ntfMain;
         private System.Windows.Forms.PrintDialog printMain;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
+        private System.Windows.Forms.ToolStripMenuItem menuFavourite;
+        private System.Windows.Forms.ToolStripMenuItem menuAddFileToList;
+        private System.Windows.Forms.ToolStripMenuItem manageFavourites;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
     }
 }
 
